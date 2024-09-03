@@ -1,0 +1,93 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Review class to store details of each review
+class Review {
+    private String userName;
+    private String hotelName;
+    private int rating;
+    private String comment;
+
+    // Constructor to initialize the review
+    public Review(String userName, String hotelName, int rating, String comment) {
+        this.userName = userName;
+        this.hotelName = hotelName;
+        this.rating = rating;
+        this.comment = comment;
+    }
+
+    // Method to display the review details
+    public void displayReview() {
+        System.out.println("User: " + userName);
+        System.out.println("Hotel: " + hotelName);
+        System.out.println("Rating: " + rating + "/5");
+        System.out.println("Comment: " + comment);
+        System.out.println("--------------------------");
+    }
+}
+
+// HotelReviewSystem class to manage reviews
+public class HotelReviewSystem {
+    private static ArrayList<Review> reviews = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+
+    // Method to add a review
+    public static void addReview() {
+        System.out.println("Enter your name: ");
+        String userName = scanner.nextLine();
+        
+        System.out.println("Enter hotel name: ");
+        String hotelName = scanner.nextLine();
+        
+        System.out.println("Enter rating (1-5): ");
+        int rating = scanner.nextInt();
+        scanner.nextLine();  // Consume the newline left-over
+        
+        System.out.println("Enter your comment: ");
+        String comment = scanner.nextLine();
+
+        Review review = new Review(userName, hotelName, rating, comment);
+        reviews.add(review);
+        System.out.println("Review added successfully!\n");
+    }
+
+    // Method to display all reviews
+    public static void displayReviews() {
+        if (reviews.isEmpty()) {
+            System.out.println("No reviews yet.");
+        } else {
+            System.out.println("Hotel Reviews:\n");
+            for (Review review : reviews) {
+                review.displayReview();
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        int choice;
+        
+        do {
+            System.out.println("Welcome to the Hotel Review System");
+            System.out.println("1. Add Review");
+            System.out.println("2. View Reviews");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();  // Consume the newline left-over
+
+            switch (choice) {
+                case 1:
+                    addReview();
+                    break;
+                case 2:
+                    displayReviews();
+                    break;
+                case 3:
+                    System.out.println("Exiting the system.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (choice != 3);
+    }
+}
